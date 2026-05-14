@@ -1,0 +1,19 @@
+{
+    "cities": ["Chennai"],
+
+    "businessCategories": [
+        "dentist",
+        "dental clinic",
+        "skin clinic",
+        "cosmetic clinic",
+        "physiotherapy center",
+        "veterinary clinic",
+        "gym",
+        "yoga studio",
+        "zumba classes",
+        "pilates studio",
+        "weight loss center"
+    ],
+
+    "targetListings": 500
+}

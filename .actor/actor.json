@@ -1,0 +1,11 @@
+{
+    "actorSpecification": 1,
+    "name": "google-maps-business-scraper",
+    "title": "Google Maps Business Scraper",
+    "description": "Scrapes business listings from Google Maps that have NO phone number.",
+    "version": "1.0",
+    "buildTag": "latest",
+    "environmentVariables": {},
+    "dockerfile": "./Dockerfile",
+    "input": "./.actor/input_schema.json"
+}

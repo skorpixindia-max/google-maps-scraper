@@ -1,0 +1,38 @@
+{
+    "title": "Google Maps Business Scraper — No Phone Filter",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "cities": {
+            "title": "Cities",
+            "type": "array",
+            "description": "Cities to search in. e.g. [\"Hyderabad\", \"Chennai\"]",
+            "editor": "stringList",
+            "prefill": ["Hyderabad"]
+        },
+        "businessCategories": {
+            "title": "Business Categories",
+            "type": "array",
+            "description": "Types of businesses. e.g. [\"dental clinic\", \"restaurant\"]",
+            "editor": "stringList",
+            "prefill": ["dental clinic"]
+        },
+        "areas": {
+            "title": "Areas / Neighbourhoods (optional)",
+            "type": "array",
+            "description": "Specific areas inside the city. e.g. [\"Banjara Hills\", \"Madhapur\"]",
+            "editor": "stringList",
+            "prefill": ["Banjara Hills", "Madhapur"]
+        },
+        "targetListings": {
+            "title": "How many no-phone profiles to collect",
+            "type": "integer",
+            "description": "Scraper stops automatically once this number is reached.",
+            "default": 5000,
+            "minimum": 1,
+            "maximum": 100000,
+            "editor": "number"
+        }
+    },
+    "required": ["cities", "businessCategories"]
+}

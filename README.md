@@ -1,106 +1,87 @@
 # Google Maps Business Scraper
 
-A Node.js scraper for collecting business listings from Google Maps using Playwright and Crawlee. It supports city and category targeting, geo-grid search, deduplication, resume logic, and exports to CSV and Excel.
+An interactive Node.js command-line tool that searches Google Maps for business listings and exports selected profile details to CSV and Excel. Configure locations, categories, filters, and scrape limits through the prompts, then review the results in the `results/` directory.
 
-## Features
+> **Important:** Use this tool only where you have a lawful basis to collect and use the data. Review Google's terms and policies, respect applicable privacy and data-protection laws, and keep requests at a responsible rate. Google Maps may limit or block automated access.
 
-- Search Google Maps by city, region, and category
-- Multi-country and multi-area scraping
-- Geo-grid location search to improve discovery coverage
-- Filters for phone number and website availability
-- Duplicate protection and resume support
-- Exports results as CSV and Excel (.xlsx)
-- Saves progress and scrape history to local files
+## Quick start
 
-## Tech Stack
-
-- Node.js 18+
-- Playwright
-- Crawlee
-- Apify
-- ExcelJS
-
-## Project Structure
-
-- `main.js` — scraper logic and interactive menu flow
-- `INPUT.json` — default cities, categories, and target count
-- `results/` — exported CSV and Excel files
-- `resume_progress.json` — resume state snapshot
-- `scrape_history.log` — execution history
-- `Dockerfile` — containerized runtime configuration
-
-## Installation
+**Requirements:** Node.js 18 or later and npm.
 
 ```bash
+git clone https://github.com/skorpixindia-max/google-maps-scraper.git
+cd google-maps-scraper
 npm install
+npm start
 ```
 
-## Configuration
+Follow the interactive prompts to choose locations and categories, set phone and website filters, enable or disable geo-grid search, and choose a listing target and time limit. Confirm the summary to begin.
 
-Edit `INPUT.json` to set the search inputs:
+## What it does
 
-```json
-{
-  "cities": ["Chennai"],
-  "businessCategories": [
-    "dentist",
-    "dental clinic",
-    "skin clinic",
-    "gym"
-  ],
-  "targetListings": 500
-}
-```
+- Searches selected cities and areas for business categories
+- Includes location and category choices across several countries, with prompts for custom countries, cities, and areas
+- Offers an optional geo-grid search for areas with known coordinates
+- Filters listings by phone-number and website availability
+- Skips closed listings and configured large chains, and avoids duplicate profiles
+- Saves progress so a run can be continued or selected work can be re-scraped
+- Writes combined and per-city/category results as CSV and Excel workbooks
 
-The scraper will prompt you interactively for:
-- country / region / city / area selection
-- business categories
-- phone and website filters
-- geo-grid enable/disable
-- time and target settings
+Search results depend on Google Maps availability, the selected area and category, and the configured limits. The listing target is a maximum, not a guarantee of how many results will be found.
 
-## Running the scraper
+## How to run
+
+Start the interactive CLI:
 
 ```bash
 npm start
 ```
 
-When started, the program runs an interactive menu and guides you through the scrape flow.
+At launch, choose one of the available modes:
 
-## Output Files
+1. **New scrape** — start a fresh run.
+2. **Continue** — load saved progress and skip completed city/category work.
+3. **Re-scrape** — select work to run again.
 
-Results are generated in the `results/` directory, including:
+Then select locations and categories, apply filters, choose whether to use geo-grid search, and set a target and time limit. Review the summary and enter `Y` to start.
 
-- `ALL_RESULTS_COMBINED.csv`
-- `ALL_RESULTS_COMBINED.xlsx`
-- per-city and per-category exports
-- progress/resume state files
+The CLI is interactive and expects a terminal with standard input available.
 
-Each output includes fields such as:
-- City
-- State / Region
-- Country
-- Category
-- Business Name
-- Phone
-- Rating
-- Reviews
-- Website
-- Latitude
-- Longitude
-- Google Maps URL
-- Scraped Date
+## Configuration
 
-## Notes
+The current scraper is configured through its interactive prompts. Although the repository contains an `INPUT.json` example, `main.js` does not currently read that file; editing it will not change the run. The default example lists Chennai, several business categories, and a target of 500 listings, but select the desired settings in the CLI.
 
-- This project is designed for local data collection and research-oriented workflows.
-- Google Maps may rate-limit or block automation; the scraper includes retry, delay, and block detection logic.
-- Use it responsibly and ensure compliance with local laws, platform terms, and website usage policies.
+To add a custom country, city, area, or category for a run, use the corresponding prompts. Geo-grid search uses built-in coordinates for supported areas; areas without a matching coordinate use text search instead.
+
+## Results and saved state
+
+Generated files are saved under `results/`:
+
+- `ALL_RESULTS_COMBINED.csv` and `ALL_RESULTS_COMBINED.xlsx` — combined results
+- City/category/date-named `.csv` and `.xlsx` files — per-work-unit exports
+
+The exports can include city, region, country, category, business name, phone, rating, review count, website, coordinates, Google Maps URL, and scrape date. Some fields may be empty when they are not available in a listing.
+
+The scraper also maintains local state in `resume_progress.json` and `scrape_history.log`. Keep these files if you want to continue a run. Back them up before deleting or replacing them; they may contain collected profile data and progress information.
+
+## Development
+
+Install dependencies and run the tool with Node.js 18 or later:
+
+```bash
+npm install
+npm start
+```
+
+The main implementation is in `main.js`. The project uses Playwright and Crawlee for browser automation, Apify's Actor APIs for dataset output, and ExcelJS for workbook generation.
+
+## Responsible use
+
+- Confirm that your intended collection and use comply with applicable laws, privacy requirements, and Google's terms and policies.
+- Collect only information you are authorized to use, and handle personal or business data appropriately.
+- Avoid excessive requests. Automated access may be interrupted or restricted by Google.
+- Do not use collected information for spam, harassment, or other unlawful purposes.
 
 ## License
 
-This project is licensed under the Apache 2.0 License.
-
-## Example
-
-A typical run can scrape multiple categories across selected urban areas and save structured business data into Excel and CSV files for downstream analysis.
+`package.json` declares the project license as Apache-2.0. Review the repository's license files and dependencies before redistributing or using the project.

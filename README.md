@@ -12,7 +12,7 @@ An interactive Node.js command-line tool that searches Google Maps for business 
 git clone https://github.com/skorpixindia-max/google-maps-scraper.git
 cd google-maps-scraper
 npm install
-npm start
+node main.js
 ```
 
 Follow the interactive prompts to choose locations and categories, set phone and website filters, enable or disable geo-grid search, and choose a listing target and time limit. Confirm the summary to begin.
@@ -31,7 +31,13 @@ Search results depend on Google Maps availability, the selected area and categor
 
 ## How to run
 
-Start the interactive CLI:
+From the project directory, run the main script directly:
+
+```bash
+node main.js
+```
+
+You can also use the npm script, which runs the same command:
 
 ```bash
 npm start
@@ -70,7 +76,7 @@ Install dependencies and run the tool with Node.js 18 or later:
 
 ```bash
 npm install
-npm start
+node main.js
 ```
 
 The main implementation is in `main.js`. The project uses Playwright and Crawlee for browser automation, Apify's Actor APIs for dataset output, and ExcelJS for workbook generation.
